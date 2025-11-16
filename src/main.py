@@ -69,7 +69,7 @@ if uploaded_file:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("📷 Original Image")
+        st.subheader(" Original Image")
         st.image(img, width=350)
 
     input_tensor = preprocess_for_model(img).to(device)
@@ -86,14 +86,14 @@ if uploaded_file:
         _, heatmap = generate_gradcam(temp_path, MODEL_PATH, "efficientnet_b3")
 
     with col2:
-        st.subheader("🔥 Grad-CAM Heatmap")
+        st.subheader(" Grad-CAM Heatmap")
         st.image(heatmap, width=350)
 
     st.markdown("---")
-    st.subheader("🧪 Prediction Result")
+    st.subheader(" Prediction Result")
     st.success(f"**Detected: {CLASS_NAMES[pred_class]}**")
 
-    st.subheader("📊 Confidence")
+    st.subheader(" Confidence")
     plt.figure(figsize=(6, 4))
     plt.bar(range(5), probabilities)
     plt.xticks(range(5), CLASS_NAMES.values(), rotation=45, ha="right")
