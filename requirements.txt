@@ -7,3 +7,4 @@ Pillow
 matplotlib
 requests
 timm
+huggingface_hub

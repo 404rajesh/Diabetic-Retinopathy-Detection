@@ -6,6 +6,7 @@ from model import create_model
 from gradcam import generate_gradcam
 from preprocess import enhance_image
 from PIL import Image
+from huggingface_hub import hf_hub_download
 import matplotlib.pyplot as plt
 import requests
 import os
@@ -34,30 +35,31 @@ st.write("Upload a retinal fundus image to detect diabetic retinopathy and view 
 # =========================================================
 #  MODEL DOWNLOAD & LOAD
 # =========================================================
-MODEL_URL = "https://huggingface.co/404rajesh/dr-detection-efficientnet-b3/resolve/main/best_fold1.pth"
-MODEL_PATH = "/tmp/best_fold1.pth"
+@st.cache_resource
+def download_model():
+    st.info("Downloading model from HuggingFace Hub...")
+    model_path = hf_hub_download(
+        repo_id="404rajesh/dr-detection-efficientnet-b3",
+        filename="best_fold1.pth",
+        repo_type="model"
+    )
+    st.success("Model downloaded successfully!")
+    return model_path
+
 
 @st.cache_resource
-def download_model(url=MODEL_URL, path=MODEL_PATH):
-    if not os.path.exists(path):
-        st.info("Downloading model from Hugging Face...")
-        response = requests.get(url)
-        with open(path, "wb") as f:
-            f.write(response.content)
-        st.success("Model downloaded successfully!")
-    return path
-
-@st.cache_resource
-def load_model(weights_path, model_name="efficientnet_b3"):
+def load_model(model_path, model_name="efficientnet_b3"):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = create_model(model_name=model_name, num_classes=5, pretrained=False)
-    ckpt = torch.load(weights_path, map_location=device)
+    ckpt = torch.load(model_path, map_location=device)
     model.load_state_dict(ckpt["model_state_dict"])
     model.to(device)
     model.eval()
     return model, device
 
-download_model()
+
+# Download and load model
+MODEL_PATH = download_model()
 model, device = load_model(MODEL_PATH)
 
 CLASS_NAMES = {
