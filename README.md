@@ -142,8 +142,3 @@ git branch -M main
 git remote add origin (your repo link)
 git push -u origin main
 ```
-
-(If the repo exists, skip `git remote add` and use `git push` after commit.)
-
-
-Say which of these to produce next (you can choose multiple).
