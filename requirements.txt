@@ -1,10 +1,9 @@
-streamlit==1.25.0
+streamlit
 torch
 torchvision
+timm
+opencv-python-headless
 numpy
-opencv-python
-Pillow
+pillow
 matplotlib
 requests
-timm
-huggingface_hub
