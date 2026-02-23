@@ -132,25 +132,6 @@ Outputs include:
 
 ---
 
-## ✅ Files Recommended for GitHub
-
-**Upload:**
-
-* `requirements.txt`
-* `.streamlit/config.toml`
-* `README.md`
-* `best_fold1.pth`
-* `src/` folder (all scripts including `main.py`)
-* `.gitignore` (exclude large folders like `preprocessed_data/` and `outputs/`)
-
-**Do NOT upload:**
-
-* Raw dataset files
-* Large preprocessed folders
-* Large checkpoints >50MB (use HuggingFace link)
-
----
-
 ## 📄 References
 
 * [APTOS 2019 Blindness Detection Dataset](https://www.kaggle.com/c/aptos2019-blindness-detection)
